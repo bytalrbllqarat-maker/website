@@ -29,3 +29,89 @@ THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 [1] http://creativecommons.org/licenses/by/3.0/
+void main() {
+  for (var i = 0; i < 10; i++) {
+    print('hello ${i + 1}');
+  }
+}
+import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Seha Care Hospital',
+      debugShowCheckedModeBanner: false,
+      home: LoginPage(),
+    );
+  }
+}import 'package:flutter/material.dart';
+import 'package:firebase_core/firebase_core.dart';
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Seha Care Hospital',
+      debugShowCheckedModeBanner: false,
+      home: LoginPage(),
+    );
+  }
+}class LoginPage extends StatelessWidget {
+  final emailController = TextEditingController();
+  final passController = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text("🏥 Seha Care", style: TextStyle(fontSize: 28)),
+
+            TextField(controller: emailController),
+            TextField(controller: passController, obscureText: true),
+
+            SizedBox(height: 20),
+
+            ElevatedButton(
+              onPressed: () {
+                // Firebase login هنا
+              },
+              child: Text("دخول"),
+            )
+          ],
+        ),
+      ),
+    );
+  }StreamBuilder(
+  stream: FirebaseFirestore.instance.collection("reports").snapshots(),
+  builder: (context, snapshot) {
+    if (!snapshot.hasData) return CircularProgressIndicator();
+
+    return ListView(
+      children: snapshot.data!.docs.map((doc) {
+        return ListTile(
+          title: Text(doc["report"]),
+          subtitle: Text(doc["status"]),
+        );
+      }).toList(),
+    );
+  },
+)
+}
